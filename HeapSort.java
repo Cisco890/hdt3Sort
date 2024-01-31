@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class HeapSort<T extends Comparable<T>> implements ISorters<T> {
 
     @Override
