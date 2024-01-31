@@ -4,24 +4,32 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
-
+import java.util.Scanner;
 
 public class MainSorters {
-    
+
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese la cantidad de números que desea generar: ");
+        int cant = scanner.nextInt();
+
+        CustomStack<Number> stack = generarNumerosAleatorios(cant);
+        escribirCustomStack(stack, "numeros.txt");
+
+        scanner.close();
+    }
+
+    public static CustomStack<Number> generarNumerosAleatorios(int cantidad) {
         CustomStack<Number> stack = new CustomStack<>();
         Random random = new Random();
-        int cant = 3000;
-        for(int i = 0; i < cant; i++){
-            int numeroaleatorio = random.nextInt(10000);
-            stack.push(numeroaleatorio);
+
+        for (int i = 0; i < cantidad; i++) {
+            int numeroAleatorio = random.nextInt(10000);
+            stack.push(numeroAleatorio);
         }
-        escribirCustomStack(stack, "numeros.txt");
-        CustomStack<Number> stackLeido = leerCustomStack("numeros.txt");
-        System.out.println("Números leídos del archivo de texto:");
-        while (!stackLeido.isEmpty()) {
-            System.out.println(stackLeido.pop());
-        }
+
+        return stack;
     }
 
     public static void escribirCustomStack(CustomStack<Number> stack, String nombreArchivo) {
@@ -47,5 +55,4 @@ public class MainSorters {
         }
         return stack;
     }
-
 }
