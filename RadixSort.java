@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.lang.Comparable;
  
-public class RadixSort<T extends Comparable<T>> implements ISorters<T> {
+ublic class RadixSort<T extends Comparable<T>> implements ISorters<T> {
 
     @Override
     public T[] sort(T[] array) {
@@ -45,12 +45,12 @@ public class RadixSort<T extends Comparable<T>> implements ISorters<T> {
         }
         return maxDigit;
     }
-    
+
     private int getMaxDigitValue(T max, int place) {
         int digitValue = getDigit(max, place);
         return digitValue / 10;
     }
-    
+
     private int getDigit(T element, int place) {
         String stringValue = element.toString();
         int length = stringValue.length();
