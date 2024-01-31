@@ -2,7 +2,7 @@ public class QuickSort<T extends Comparable<T>> implements ISorters<T> {
     
     @Override
     public T[] sort(T[] array) {
-        quickSort(array, 0,array.length);
+        quickSort(array, 0,array.length - 1);
         return array;
     }
 
