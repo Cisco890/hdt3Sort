@@ -26,38 +26,29 @@ public class Pigeonholesort<T extends Comparable<T>> implements ISorters<T> {
         }
 
         int index = 0;
-        int minValue = Integer.parseInt(min.toString());
         for(int j = 0; j < range; j++){
             while (frequency[j]-- > 0){
-                array[index++] = j + minValue;
+                ((Incrementar<T>) min).increment();
+                array[index++] = min;
             }
         }
         return array;
     }
+
+    public interface Incrementar<T> {
+        void increment();
+    }
+    
+    public class Numero implements Incrementar<Numero> {
+        private int value;
+    
+        public Numero(int value) {
+            this.value = value;
+        }
+    
+        public void increment() {
+            value++;
+        }
+    }
     
 }
-// public static void pigeonhole_sort(int arr[], int n)
-// {
-//     int min = arr[0];
-//     int max = arr[0];
-//     int range, i, j, index;
-
-//     for (int a = 0; a < n; a++) {
-//         if (arr[a] > max)
-//             max = arr[a];
-//         if (arr[a] < min)
-//             min = arr[a];
-//     }
-
-//     range = max - min + 1;
-//     int[] phole = new int[range];
-//     Arrays.fill(phole, 0);
-
-//     for (i = 0; i < n; i++)
-//         phole[arr[i] - min]++;
-
-//     index = 0;
-
-//     for (j = 0; j < range; j++)
-//         while (phole[j]-- > 0)
-//             arr[index++] = j + min;
