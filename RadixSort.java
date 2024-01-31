@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.lang.Comparable;
  
-ublic class RadixSort<T extends Comparable<T>> implements ISorters<T> {
+public class RadixSort<T extends Comparable<T>> implements ISorters<T> {
 
     @Override
     public T[] sort(T[] array) {
@@ -57,7 +57,7 @@ ublic class RadixSort<T extends Comparable<T>> implements ISorters<T> {
 
         if (place <= length) {
             char digitChar = stringValue.charAt(length - place);
-            return Character.getNumericValue(digitChar);
+            return digitChar - '0';
         } else {
             return 0;
         }
