@@ -5,71 +5,54 @@ public class RadixSort<T extends Comparable<T>> implements ISorters<T> {
 
     @Override
     public T[] sort(T[] array) {
-        T max = getMax(array);
-        int maxDigit = getMaxDigit(max);
+        if (array == null || array.length == 0) {
+            return array;
+        }
 
-        for (int place = 1; place <= maxDigit; place *= 10) {
-            countingSort(array, place);
+        int max = getMax(array);
+
+        for (int exp = 1; max / exp > 0; exp *= 10) {
+            countingSort(array, exp);
         }
 
         return array;
     }
 
-    private void countingSort(T[] array, int place) {
-        int size = array.length;
-        T[] output = Arrays.copyOf(array, size);
+    private int getMax(T[] array) {
+        int max = 0;
+        for (T element : array) {
+            int value = ((Integer) element).intValue();
+            if (value > max) {
+                max = value;
+            }
+        }
+        return max;
+    }
+
+    private void countingSort(T[] array, int exp) {
+        int n = array.length;
+        Object[] output = new Object[n];
         int[] count = new int[10];
 
-        for (int i = 0; i < size; i++) {
-            int digit = getDigit(array[i], place);
-            count[digit]++;
+        Arrays.fill(count, 0);
+
+        for (int i = 0; i < n; i++) {
+            int index = ((Integer) array[i]).intValue() / exp;
+            count[index % 10]++;
         }
+
 
         for (int i = 1; i < 10; i++) {
             count[i] += count[i - 1];
         }
 
-        for (int i = size - 1; i >= 0; i--) {
-            int digit = getDigit(array[i], place);
-            output[count[digit] - 1] = array[i];
-            count[digit]--;
+        for (int i = n - 1; i >= 0; i--) {
+            int index = ((Integer) array[i]).intValue() / exp;
+            output[count[index % 10] - 1] = array[i];
+            count[index % 10]--;
         }
 
-        System.arraycopy(output, 0, array, 0, size);
-    }
 
-    private int getMaxDigit(T max) {
-        int maxDigit = 0;
-        for (int i = 1; getMaxDigitValue(max, i) > 0; i++) {
-            maxDigit = i;
-        }
-        return maxDigit;
-    }
-
-    private int getMaxDigitValue(T max, int place) {
-        int digitValue = getDigit(max, place);
-        return digitValue / 10;
-    }
-
-    private int getDigit(T element, int place) {
-        String stringValue = element.toString();
-        int length = stringValue.length();
-
-        if (place <= length) {
-            char digitChar = stringValue.charAt(length - place);
-            return digitChar - '0';
-        } else {
-            return 0;
-        }
-    }
-
-    private T getMax(T[] array) {
-        T max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i].compareTo(max) > 0) {
-                max = array[i];
-            }
-        }
-        return max;
+        System.arraycopy(output, 0, array, 0, n);
     }
 }
