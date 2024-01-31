@@ -1,0 +1,13 @@
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug MainSorters",
+            "request": "launch",
+            "mainClass": "MainSorters",
+            "projectName": "hd3Sort"
+        }
+    ]
+}
